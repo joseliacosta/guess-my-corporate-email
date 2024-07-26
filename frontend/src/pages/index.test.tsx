@@ -2,7 +2,7 @@ import { act, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import Home from ".";
-import { submitForm } from "@/services/data";
+import { submitForm, useData } from "@/services/data";
 
 jest.mock("../services/data", () => ({
   useData: jest.fn(() => ({ data: ["google.com", "linkedin.com"] })),
@@ -10,6 +10,20 @@ jest.mock("../services/data", () => ({
 }));
 
 describe("Home", () => {
+  it("should show an error toast when receive an error backend", async () => {
+    (useData as jest.Mock<any>).mockImplementation(() => ({
+      data: [],
+      isError: "ferrô",
+      isLoading: false,
+    }));
+
+    render(<Home />);
+
+    expect(
+      screen.getByText(/unfortunately we had an error on our server/i)
+    ).toBeInTheDocument();
+  });
+
   it("should render the form with 2 inputs and a submit button", () => {
     render(<Home />);
 

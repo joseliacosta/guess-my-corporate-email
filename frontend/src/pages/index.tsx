@@ -122,16 +122,15 @@ export default function Home() {
           </section>
         )}
 
-        {isError ||
-          (apiError && (
-            <section className={styles.result}>
-              <h3 id="error">Error message</h3>
-              <p>Unfortunately we had an error on our server 😢</p>
-              <button onClick={refreshPage} className={styles.secondaryButton}>
-                Try again
-              </button>
-            </section>
-          ))}
+        {isError && (
+          <section className={styles.result}>
+            <h3 id="error">Error message</h3>
+            <p>Unfortunately we had an error on our server 😢</p>
+            <button onClick={refreshPage} className={styles.secondaryButton}>
+              Try again
+            </button>
+          </section>
+        )}
       </main>
       <footer className={styles.footer}>
         Made with 🧡 by:
